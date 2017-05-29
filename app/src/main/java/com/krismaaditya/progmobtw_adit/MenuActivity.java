@@ -1,6 +1,8 @@
 package com.krismaaditya.progmobtw_adit;
 
 import android.content.DialogInterface;
+import android.net.Uri;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,35 +10,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.twitter.sdk.android.core.TwitterAuthConfig;
-import com.twitter.sdk.android.core.TwitterCore;
-import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
-import org.w3c.dom.Text;
-
+import java.io.File;
 import java.util.Random;
 
-import io.fabric.sdk.android.Fabric;
-
-public class MainActivity extends AppCompatActivity {
-
-    //Twitter consumerKey dan consumerSecret
-    private static final String consumerKey = "3o3B1Wo1DDYi05h3lMPUNhb7m";
-    private static final String consumerSecret = "tpDrvsb9pdSgFtazrR1HMDuvUwuyTlIrTmG7i2WJvDcZvWEIqk";
-
+public class MenuActivity extends AppCompatActivity {
 
     private String angkaAcak;
-
+    private String sialText = "Sepertinya hari ini saya sedang sial.";
+    private String biasaText = "Hari ini nampaknya biasa saja.";
+    private String beruntungText = "Saya merasa beruntung hari ini.";
     private Button ujiButton;
     private TextView angkaTV;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        TwitterAuthConfig authConfig = new TwitterAuthConfig(consumerKey, consumerSecret);
-        Fabric.with(this, new TwitterCore(authConfig), new TweetComposer());
+        setContentView(R.layout.activity_menu);
 
         ujiButton = (Button)findViewById(R.id.ujiButton);
         angkaTV = (TextView)findViewById(R.id.angkaTV);
@@ -57,12 +48,21 @@ public class MainActivity extends AppCompatActivity {
         this.angkaAcak = n;
         angkaTV.setText(angkaAcak);
 
-        AlertDialog aD = new AlertDialog.Builder(MainActivity.this).create();
+        AlertDialog aD = new AlertDialog.Builder(MenuActivity.this).create();
         aD.setTitle("");
         if (a >= 0 && a <=33)
         {
             aD.setMessage("Angka kamu : "+angkaAcak
                     +"\nSepertinya hari ini saya sedang sial.");
+
+            /*Uri sialImageUri = FileProvider.getUriForFile(MenuActivity.this,
+                    BuildConfig.APPLICATION_ID + ".file_provider",
+                    new File("@drawable/sial"));*/
+
+            TweetComposer.Builder builder = new TweetComposer.Builder(this)
+                    .text(sialText);
+                    //.image(sialImageUri);
+            builder.show();
         }
         else if (a >= 34 && a <=66)
         {
@@ -85,4 +85,5 @@ public class MainActivity extends AppCompatActivity {
 
         aD.show();
     }
+
 }
