@@ -34,9 +34,9 @@
             android:id="@+id/loginButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/testButton"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="31dp" />
+            android:layout_marginTop="68dp" />
 
         <TextView
             android:id="@+id/textView3"
@@ -57,17 +57,6 @@
             android:text="Albertus Krisma Aditya Giovanni (71120061)"
             android:textColor="@android:color/white" />
 
-        <Button
-            android:id="@+id/testButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/textView3"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="24dp"
-            android:background="@drawable/greenbutton"
-            android:text="Button"
-            android:textColor="@android:color/white"
-            tools:text="TEST" />
     </RelativeLayout>
 
 </LinearLayout>

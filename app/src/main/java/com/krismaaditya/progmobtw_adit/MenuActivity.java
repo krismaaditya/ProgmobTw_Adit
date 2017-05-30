@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.twitter.sdk.android.core.TwitterCore;
+import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
 import java.io.File;
@@ -23,14 +25,23 @@ public class MenuActivity extends AppCompatActivity {
     private String beruntungText = "Saya merasa beruntung hari ini.";
     private Button ujiButton;
     private TextView angkaTV;
+    private TextView usernameTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
+        TwitterSession session = TwitterCore.getInstance().getSessionManager().getActiveSession();
+        long id = session.getUserId();
+        String user_id = String.valueOf(id);
+        String username = session.getUserName();
+
         ujiButton = (Button)findViewById(R.id.ujiButton);
         angkaTV = (TextView)findViewById(R.id.angkaTV);
+        usernameTV = (TextView)findViewById(R.id.usernameTV);
+
+        usernameTV.setText(username);
 
         ujiButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,22 +68,39 @@ public class MenuActivity extends AppCompatActivity {
 
             /*Uri sialImageUri = FileProvider.getUriForFile(MenuActivity.this,
                     BuildConfig.APPLICATION_ID + ".file_provider",
-                    new File("@drawable/sial"));*/
+                    new File("/res/drawable/sial.png"));*/
+
+            Uri sialImagepath = Uri.parse("android.resource://com.krismaaditya.progmobtw_adit/" + R.drawable.sial);
 
             TweetComposer.Builder builder = new TweetComposer.Builder(this)
-                    .text(sialText);
-                    //.image(sialImageUri);
+                    .text(sialText)
+                    .image(sialImagepath);
             builder.show();
         }
         else if (a >= 34 && a <=66)
         {
             aD.setMessage("Angka kamu : "+angkaAcak
                     +"\nHari ini nampaknya biasa saja.");
+
+            Uri biasaImagepath = Uri.parse("android.resource://com.krismaaditya.progmobtw_adit/" + R.drawable.biasa);
+
+            TweetComposer.Builder builder = new TweetComposer.Builder(this)
+                    .text(biasaText)
+                    .image(biasaImagepath);
+            builder.show();
+
         }
         else if (a >= 67 && a <=100)
         {
             aD.setMessage("Angka kamu : "+angkaAcak
                     +"\nSaya merasa beruntung hari ini.");
+
+            Uri beruntungImagepath = Uri.parse("android.resource://com.krismaaditya.progmobtw_adit/" + R.drawable.beruntung);
+
+            TweetComposer.Builder builder = new TweetComposer.Builder(this)
+                    .text(beruntungText)
+                    .image(beruntungImagepath);
+            builder.show();
         }
         aD.setButton(AlertDialog.BUTTON_NEUTRAL,"OK",
                 new DialogInterface.OnClickListener()

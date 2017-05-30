@@ -29,8 +29,6 @@ public class LoginActivity extends AppCompatActivity {
     private static final String CONSUMER_SECRET = "tpDrvsb9pdSgFtazrR1HMDuvUwuyTlIrTmG7i2WJvDcZvWEIqk";
 
     private TwitterLoginButton loginButton;
-    //dummy button buat ngetest doang
-    private Button testButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +53,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         loginButton = (TwitterLoginButton) findViewById(R.id.loginButton);
-        testButton = (Button) findViewById(R.id.testButton);
 
         final ProgressDialog pD = new ProgressDialog(this);
 
@@ -87,18 +84,6 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "Login Gagal", Toast.LENGTH_LONG).show();
             }
         });
-
-        //buat ngetest doang ini
-        testButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                pD.setMessage("Logging you in...");
-                pD.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                pD.setIndeterminate(true);
-                pD.show();
-            }
-        });
-
     }
 
 
